@@ -10,42 +10,13 @@ class MacCleanup < Formula
     bin.install "mac-cleanup.sh" => "mac-cleanup"
   end
 
-  def plist
-    <<~EOS
-      <?xml version="1.0" encoding="UTF-8"?>
-      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-      <plist version="1.0">
-      <dict>
-        <key>Label</key>
-        <string>#{plist_name}</string>
-
-        <key>ProgramArguments</key>
-        <array>
-          <string>#{opt_bin}/mac-cleanup</string>
-        </array>
-
-        <key>StartCalendarInterval</key>
-        <dict>
-          <key>Weekday</key>
-          <integer>6</integer>
-          <key>Hour</key>
-          <integer>10</integer>
-          <key>Minute</key>
-          <integer>0</integer>
-        </dict>
-
-        <key>StandardOutPath</key>
-        <string>~/.local/share/mac-cleanup/launchd.log</string>
-
-        <key>StandardErrorPath</key>
-        <string>~/.local/share/mac-cleanup/launchd.log</string>
-
-        <key>ProcessType</key>
-        <string>Background</string>
-      </dict>
-      </plist>
-    EOS
+  service do
+    run opt_bin/"mac-cleanup"
+    keep_alive false
+    cron "0 10 * * 6"
+    log_path "#{Dir.home}/.local/share/mac-cleanup/launchd.log"
+    error_log_path "#{Dir.home}/.local/share/mac-cleanup/launchd.log"
+    process_type :background
   end
 
   test do

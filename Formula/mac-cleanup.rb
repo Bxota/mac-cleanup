@@ -2,7 +2,7 @@ class MacCleanup < Formula
   desc "Nettoyage automatique hebdomadaire pour macOS (caches, node_modules, build artifacts)"
   homepage "https://github.com/Bxota/mac-cleanup"
   url "https://github.com/Bxota/mac-cleanup/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "PLACEHOLDER_SHA256"
+  sha256 "7fb9b4939f98d9587e8b5e02860fad92961f95b8a8f05b278d8b7d1b77898144"
   version "1.0.0"
   license "MIT"
 
